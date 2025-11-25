@@ -9,10 +9,21 @@ async function fetchProducts(){
             method: 'GET',
         }
     )
-    const products = await response.json()
-    return products
+    const data = await response.json()
+    return data
 }
 
 function renderProducts(){
-    product_conteiner.innerHTML = ''
+    let products_html= '' 
+    for(const product of data){
+        products_html += `
+            <div class="product-card">
+                <h2>${product.title}</h2>
+                <p>${product.price}</p>
+                <button data-id="${product.id}" class="add-to-cart">Ageregar al carrito</button>
+                <p>Stock: ${product.stock}</p>
+            </div>
+        `
+    }
+    product_conteiner.innerHTML = products_html
 }
